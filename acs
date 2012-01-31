@@ -9,11 +9,15 @@ my @pkg = <$acs>;
 my $i=0;
 my $j=0;
 my @c = (197,106,212,100,32,220,196,112);
+
+my $termBold = "\033[1m";
+my $termReset = "\033[0m";
+
 for(@pkg) {
   $j++; # 1
 
   my($package,$desc) = m/(.+?)\s+-\s+(.+)/g;
-  printf("\033[1m%03d\033[1m\033[38;5;$c[$i]m%25s\033[0m \033[38;5;155m$desc\033[0m\n",$j,$package);
+  printf("$termBold%03d$termBold\033[38;5;$c[$i]m%25s$termReset \033[38;5;155m$desc$termReset\n",$j,$package);
 
   if($i == scalar(@c)-1) {
     $i = 0;
