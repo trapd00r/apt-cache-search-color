@@ -8,16 +8,27 @@ open(my $acs, '-|', "apt-cache search $re") or die($!);
 my @pkg = <$acs>;
 my $i=0;
 my $j=0;
-my @c = (197,106,212,100,32,220,196,112);
+my @c = (
+  "\033[38;5;197m",
+  "\033[38;5;106m",
+  "\033[38;5;212m",
+  "\033[38;5;100m",
+  "\033[38;5;32m",
+  "\033[38;5;220m",
+  "\033[38;5;196m",
+  "\033[38;5;112m"
+);
 
 my $termBold = "\033[1m";
 my $termReset = "\033[0m";
+
+my $colorDescription = "\033[38;5;155m";
 
 for(@pkg) {
   $j++; # 1
 
   my($package,$desc) = m/(.+?)\s+-\s+(.+)/g;
-  printf("$termBold%03d$termBold\033[38;5;$c[$i]m%25s$termReset \033[38;5;155m$desc$termReset\n",$j,$package);
+  printf("$termBold%03d$termBold$c[$i]%25s$termReset $colorDescription$desc$termReset\n",$j,$package);
 
   if($i == scalar(@c)-1) {
     $i = 0;
